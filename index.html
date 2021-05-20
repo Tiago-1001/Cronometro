@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronômetro</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <!--<script type="text/javascript" src="./javascript/script.js"></script>-->
+</head>
+
+<body>
+    <div class="circle"></div>
+    <div class="container">
+            
+            <h2>Minutos:</h2>
+            <select id="minutos" name="minutos"></select>
+
+            <h2>Segundos:</h2>
+            <select id="segundos" name="segundos"></select>
+            <br>
+            <br>
+        
+            <button id="iniciar">INICIAR</button>
+
+            <div id="display">
+            <h3>0:0</h3>
+            </div><!--Display-->
+
+    </div><!--Container-->
+    
+
+    <script>
+        var minutos = document.getElementById('minutos');
+        var segundos = document.getElementById('segundos');
+        var iniciar = document.getElementById('iniciar');
+        
+        var cronometroSeg;
+        
+        var minutoAtual;
+        var segundoAtual;
+        
+        var interval;
+        
+        for(var i = 0; i <= 60; i++){
+            minutos.innerHTML+='<option value="'+i+'"> '+i+'</option>';
+        }
+
+        for(var i = 0; i <= 60; i++){
+            segundos.innerHTML+='<option value="'+i+'"> '+i+'</option>';
+        }
+
+        iniciar.addEventListener('click', function(){
+            minutoAtual = minutos.value;
+            segundoAtual = segundos.value;
+
+            display.childNodes[1].innerHTML = minutoAtual + ":"+segundoAtual;
+
+            interval = setInterval(function(){
+
+                segundoAtual--;
+                if(segundoAtual <=0){
+                    if(minutoAtual > 0){
+                        minutoAtual--;
+                        segundoAtual = 59;
+                    }
+                    else{
+                        alert("Fim da Contagem");
+                        /*document.getElementById("sound").play();*//*Espaço para por o som*/
+                        clearInterval(interval);
+                    }
+                }
+
+                display.childNodes[1].innerHTML = minutoAtual + ":"+segundoAtual;
+
+            },1000);
+        })
+
+    </script>
+   
+</body>
+</html>
